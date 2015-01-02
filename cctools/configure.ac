@@ -199,7 +199,8 @@ AC_PROG_INSTALL
 AC_PROG_CC([${host}-clang])
 AC_PROG_CXX([${host}-clang++])
 AM_PROG_CC_C_O
-AC_PROG_OBJC([${host}-clang])
+ac_cv_prog_OBJC="${ac_cv_prog_CC}"
+AC_PROG_OBJC
 AM_PROG_AS([${host}-clang])
 
 AC_CHECK_TOOL([HOST_RANLIB], [ranlib], :)
