@@ -25,12 +25,6 @@ fi
 
 CXXFLAGS="$CXXFLAGS -std=c++0x"
 
-if test "x$build" = "x$host"; then
-  CFLAGS="$CFLAGS -isystem /usr/local/include -isystem /usr/pkg/include"
-  CXXFLAGS="$CXXFLAGS -isystem /usr/local/include -isystem /usr/pkg/include"
-  LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/pkg/lib"
-fi
-
 CWARNINGS=""
 OBJCWARNINGS=""
 CXXWARNINGS=""
@@ -200,11 +194,11 @@ LT_INIT(disable-static)
 
 AC_PROG_INSTALL
 
-AC_PROG_CC([clang])
-AC_PROG_CXX([clang++])
+AC_PROG_CC([${host}-clang])
+AC_PROG_CXX([${host}-clang++])
 AM_PROG_CC_C_O
-AC_PROG_OBJC([clang])
-AM_PROG_AS([clang])
+AC_PROG_OBJC([${host}-clang])
+AM_PROG_AS([${host}-clang])
 
 AC_CHECK_TOOL([HOST_RANLIB], [ranlib], :)
 AC_CHECK_TOOL([HOST_AR], [ar], :)
