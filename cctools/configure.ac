@@ -55,7 +55,9 @@ LT_INIT(disable-static)
 
 AC_PROG_INSTALL
 
-AC_PROG_OBJC([${host}-clang clang])
+ac_cv_prog_OBJC="${ac_cv_prog_CC}"
+AC_PROG_OBJC
+
 AM_PROG_AS([${host}-clang clang])
 AM_PROG_CC_C_O
 
