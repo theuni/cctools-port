@@ -34,19 +34,9 @@ fi
 
 CXXFLAGS="$CXXFLAGS -std=c++0x"
 
-if test "x$build" = "x$host"; then
-  CC="clang"
-  CXX="clang++"
-  CFLAGS="$CFLAGS -isystem /usr/local/include -isystem /usr/pkg/include"
-  CXXFLAGS="$CXXFLAGS -isystem /usr/local/include -isystem /usr/pkg/include"
-  LDFLAGS="$LDFLAGS -L/usr/local/lib -L/usr/pkg/lib"
-else
-  CC="`which ${host_alias}-clang 2>/dev/null || echo clang`"
-  CXX="`which ${host_alias}-clang++ 2>/dev/null || echo clang++`"
-fi
 
-CPP="$CC -E"
-OBJC="$CC"
+AC_PROG_CC([${host}-clang clang])
+AC_PROG_CXX([${host}-clang++ clang++])
 
 # FIXME 'subdir-objects' breaks dependency tracking
 AM_INIT_AUTOMAKE([1.10 no-define no-dist-gzip dist-bzip2 tar-ustar subdir-objects no-dependencies])
@@ -63,11 +53,9 @@ LT_INIT(disable-static)
 
 AC_PROG_INSTALL
 
-AC_PROG_CC([clang])
-AC_PROG_CXX([clang++])
+AC_PROG_OBJC([${host}-clang clang])
+AM_PROG_AS([${host}-clang clang])
 AM_PROG_CC_C_O
-AC_PROG_OBJC([clang])
-AM_PROG_AS([clang])
 
 AC_CHECK_TOOL([HOST_RANLIB], [ranlib], :)
 AC_CHECK_TOOL([HOST_AR], [ar], :)
