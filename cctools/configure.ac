@@ -72,6 +72,11 @@ AM_PROG_AS([clang])
 AC_CHECK_TOOL([HOST_RANLIB], [ranlib], :)
 AC_CHECK_TOOL([HOST_AR], [ar], :)
 
+AC_ARG_ENABLE([libuuid],
+AS_HELP_STRING([--enable-libuuid],
+               [enable random uuid support via libuuid]),
+[use_uuid=$enableval], [use_uuid=yes])
+
 if test "x$isdarwin" != "xyes"; then
   AC_CHECK_HEADERS([openssl/md5.h], [], [AC_MSG_ERROR([*** md5.h not found, please install ssl dev packages according to your system])])
   CRYPTO_LIB=-lcrypto
@@ -80,7 +85,6 @@ if test "x$isdarwin" != "xyes"; then
   AC_SUBST([SSL_LIB])
 fi
 
-AC_CHECK_HEADERS([uuid/uuid.h], [], [AC_MSG_ERROR([*** uuid.h not found, please install uuid dev packages according to your system])])
 
 #for libstuff emulated.c
 case $target_cpu in
@@ -284,8 +288,11 @@ AC_SUBST(DL_LIB)
 AC_CHECK_LIB([pthread],[pthread_create],[PTHREAD_FLAGS=-pthread])
 AC_SUBST(PTHREAD_FLAGS)
 
-AC_CHECK_LIB([uuid],[uuid_generate_random],[UUID_LIB=-luuid])
-AC_SUBST(UUID_LIB)
+if test "x$use_uuid" != "xno"; then
+  AC_CHECK_HEADERS([uuid/uuid.h], [], [AC_MSG_ERROR([*** uuid.h not found, please install uuid dev packages or use --disable-libuuid])])
+  AC_CHECK_LIB([uuid],[uuid_generate_random],[UUID_LIB=-luuid])
+  AC_SUBST(UUID_LIB)
+fi
 
 AC_CHECK_FUNCS([strmode])
 

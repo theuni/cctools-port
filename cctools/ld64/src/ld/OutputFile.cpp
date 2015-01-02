@@ -38,7 +38,9 @@
 #include <mach/vm_statistics.h>
 #include <mach/mach_init.h>
 #include <mach/mach_host.h>
+#if defined(HAVE_UUID_UUID_H)
 #include <uuid/uuid.h>
+#endif
 #include <dlfcn.h>
 #include <mach-o/dyld.h>
 #include <mach-o/fat.h>
@@ -2769,9 +2771,13 @@ void OutputFile::writeOutputFile(ld::Internal& state)
 	}
 	
 	if ( _options.UUIDMode() == Options::kUUIDRandom ) {
+#if defined(HAVE_UUID_UUID_H)
 		uint8_t bits[16];
 		::uuid_generate_random(bits);
 		_headersAndLoadCommandAtom->setUUID(bits);
+#else
+		throwf("Random uuid support via libuuid not compiled in");
+#endif
 	}
 
 	writeAtoms(state, wholeBuffer);
