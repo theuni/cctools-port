@@ -77,14 +77,6 @@ AS_HELP_STRING([--enable-libuuid],
                [enable random uuid support via libuuid]),
 [use_uuid=$enableval], [use_uuid=yes])
 
-if test "x$isdarwin" != "xyes"; then
-  AC_CHECK_HEADERS([openssl/md5.h], [], [AC_MSG_ERROR([*** md5.h not found, please install ssl dev packages according to your system])])
-  CRYPTO_LIB=-lcrypto
-  SSL_LIB=-lssl
-  AC_SUBST([CRYPTO_LIB])
-  AC_SUBST([SSL_LIB])
-fi
-
 
 #for libstuff emulated.c
 case $target_cpu in

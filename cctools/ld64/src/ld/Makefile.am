@@ -7,11 +7,10 @@ ld_LDADD =  \
 	$(top_srcdir)/ld64/src/ld/parsers/libParsers.la \
 	$(top_srcdir)/ld64/src/ld/passes/libPasses.la \
 	$(DL_LIB) \
-	$(CRYPTO_LIB) \
 	$(UUID_LIB) \
 	$(LTO_LIB)
 
-ld_LDFLAGS = $(PTHREAD_FLAGS) $(SSL_LIB)
+ld_LDFLAGS = $(PTHREAD_FLAGS)
 
 ld_CXXFLAGS =  \
 	-fblocks \
@@ -57,3 +56,7 @@ ld_SOURCES =  \
 	Snapshot.cpp  \
 	SymbolTable.cpp \
 	code-sign-blobs/blob.cpp
+
+if !ISDARWIN
+ld_SOURCES += md5/md5.c
+endif

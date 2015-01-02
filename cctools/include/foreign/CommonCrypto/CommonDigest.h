@@ -4,8 +4,7 @@
 
 #else
 
-#include <openssl/md5.h>
-
+#include "md5/md5.h"
 #define CC_MD5_DIGEST_LENGTH		MD5_DIGEST_LENGTH
 #define CC_MD5_Init			MD5_Init
 #define CC_MD5_Update			MD5_Update
