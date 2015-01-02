@@ -183,7 +183,9 @@ OBJC="$CC"
 AM_INIT_AUTOMAKE([1.10 no-define no-dist-gzip dist-bzip2 tar-ustar subdir-objects no-dependencies])
 
 AC_CONFIG_MACRO_DIR([m4])
-AM_MAINTAINER_MODE
+AM_MAINTAINER_MODE([enable])
+
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 AC_PREREQ([2.57])
 AC_REVISION([$Revision: 1.37 $])
